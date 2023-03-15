@@ -1,16 +1,28 @@
 import os
 import openai
+import telegram
+import logging
+from os import environ as env
 from dotenv import load_dotenv
 from colorama import Fore, Back, Style
+import telebot
 
 # load values from the .env file if it exists
 load_dotenv()
 
 # configure OpenAI
-openai.api_key = os.getenv("OPENAI_API_KEY")
+#openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = env["OPENAI_API_KEY"]
+bot = telebot.TeleBot(env["BOT_API_KEY"])
+#bot = telegram.Bot("TOKEN_TELEGRAM").strip()
 
-INSTRUCTIONS = """
-"""
+
+INSTRUCTIONS = """Te has encontrado un pollo de pájaro, observa si está herido o sangra, si está herido o sangra contacta con un centro de recuperación de aves, con agentes forestales o con el 112.
+ Si estás en el campo y el pollito no está herido, no toques al pollito, pronto vendrán sus padres y le ayudarán. Si estas en zona urbana y el pollo es recién nacido o tiene algunas plumas y puedes ver el nido, devuelvelo a su nido con mucho cuidado, que los padres no lo van a rechazar y quédate mirando desde lejos. Si no puedes ver el nido, intenta construir una especie de nido en un lugar seguro que no corra peligro y déjalo cerca de donde lo has encontrado.
+Si el pollo que te has encontrado es volantón, observa si es un lugar peligroso, si es peligroso ponlo en un lugar seguro cerca de donde lo has encontrado lejos de mascotas y tráfico y alejate. Si no es un lugar peligroso, no hagas nada, les pasa a los pollos que están aprendiendo a volar y los padres estarán cerca ayudándole.
+Si el pollo que te has encontrado es un vencejo adulto, llévalo al borde de una repisa y si vuela siéntete orgulloso de haber salvado a un pollo de una especie amenazada.
+Si el pollo adulto no vuela contacta con un centro de recuperación de aves, con agentes forestales o con el 112."""
+
 ANSWER_SEQUENCE = "\nQ:"
 QUESTION_SEQUENCE = "\nA: "
 TEMPERATURE = 0.5
@@ -21,24 +33,24 @@ PRESENCE_PENALTY = 0.6
 MAX_CONTEXT_QUESTIONS = 10
 
 
-def get_response(prompt):
-    """
-    Get a response from the model using the prompt
-    Parameters:
-        prompt (str): The prompt to use to generate the response
-    Returns the response from the model
-    """
+#mensajes de entrada
+@bot.message_handler(func=lambda message: True)
+def get_codex(message):
     response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=prompt,
-        temperature=TEMPERATURE,
-        max_tokens=MAX_TOKENS,
+        engine="text-davinci-003",
+        prompt='"""\n{}\n"""'.format(message.text),
+        temperature=0,
+        max_tokens=1200,
         top_p=1,
-        frequency_penalty=FREQUENCY_PENALTY,
-        presence_penalty=PRESENCE_PENALTY,
-    )
-    return response.choices[0].text
+        frequency_penalty=0,
+        presence_penalty=0,
+        stop=['"""'])
 
+    bot.send_message(message.chat.id,
+    f'```python\n{response["choices"][0]["text"]}\n```',
+    parse_mode="Markdown")
+
+bot.infinity_polling()
 
 def get_moderation(question):
     """
