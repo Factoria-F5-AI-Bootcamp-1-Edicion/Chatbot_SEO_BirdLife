@@ -25,10 +25,11 @@ logging.basicConfig(filename='bot.log', level=logging.DEBUG, format='Date-Time :
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     logging.debug("Received a 'start' or 'help' command")
-    welcome_message = "Hola, soy Ana, una inteligencia artificial entrenada por OpenAI. " \
-                      "Puedo orientarte en como actuar en caso que hayas conseguido un pollito. " \
-                      "Simplemente escríbeme cualquier pregunta que tengas y te responderé con la mejor respuesta que pueda encontrar. " \
-                      "¡Comencemos! 👋🤖"
+    welcome_message = "Hola, soy PiaBot, una inteligencia artificial entrenada por OpenAI. " \
+                      "Esta información es proporcionada por un chatbot creado por un equipo de expertos en el cuidado de aves silvestres. " \
+                      "No se acepta ninguna responsabilidad por cualquier daño o pérdida que pueda resultar de su aplicación. " \
+                      "¡Comencemos! 👋🤖. " \
+                      
     bot.reply_to(message, welcome_message)
 
 #Función que tramita las preguntas recibidas, crea un prompt que incluye el texto base y las preguntas, envia el prompt a openai para generar la respuesta y devuelva la respuesta al usuario.
