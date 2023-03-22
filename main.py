@@ -50,7 +50,7 @@ def get_codex(message):
     answer = response.choices[0].text.strip()
     bot.reply_to(message, answer)
 
-#Esta función toma la pregunta del usuario como input, se la envia al api moderation de openai y retorna una lista de flag content si la pregunta vviola la politica de moderación.
+#Esta función toma la pregunta del usuario como input, se la envia al api moderation de openai y retorna una lista de flag content si la pregunta viola la politica de moderación.
 def get_moderation(question):
     errors = {
         "hate": "Content that expresses, incites, or promotes hate based on race, gender, ethnicity, religion, nationality, sexual orientation, disability status, or caste.",
