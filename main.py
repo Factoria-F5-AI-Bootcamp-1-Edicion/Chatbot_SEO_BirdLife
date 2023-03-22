@@ -48,6 +48,10 @@ def get_codex(message):
     )
 
     answer = response.choices[0].text.strip()
+    # Guarda la pregunta y respuesta en un archivo de texto, si no esta creado, se crea automaticamente. Separa el lote de preguntas y respuestas con espacios.
+    with open("preguntas_respuestas.txt", "a", encoding="utf-8") as file:
+        file.write(f"Pregunta: {question}\n")
+        file.write(f"Respuesta: {answer}\n\n")
     bot.reply_to(message, answer)
 
 #Esta función toma la pregunta del usuario como input, se la envia al api moderation de openai y retorna una lista de flag content si la pregunta viola la politica de moderación.
