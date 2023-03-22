@@ -14,9 +14,9 @@ openai.api_key = env["OPENAI_API_KEY"]
 #Insertar clave del telebot
 bot = telebot.TeleBot(env["BOT_API_KEY"])
 
-#Insertar el texto que será la base para generar las respuestas del modelo
-INSTRUCTIONS = """Me acabo de encontrar un pollito
-"""
+#Con este statement se accede al archivo .txt que contine el texto base que empleará openai para elaborar las respuestas a las preguntas realizadas.
+with open('instructions.txt', 'r', encoding='utf-8') as f:
+    INSTRUCTIONS = f.read().strip()
 
 # Configurar el logging para escribir debug messages en el archivo bot.log
 logging.basicConfig(filename='bot.log', level=logging.DEBUG, format='Date-Time : %(asctime)s : Line No. : %(lineno)d - %(message)s',filemode='w')
