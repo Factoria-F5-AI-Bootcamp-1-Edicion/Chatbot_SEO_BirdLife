@@ -39,35 +39,13 @@ def send_welcome(message):
                       
     bot.reply_to(message, welcome_message)
 
-#Función que tramita las preguntas recibidas, crea un prompt que incluye el texto base y las preguntas, envia el prompt a openai para generar la respuesta y devuelverla al usuario.
+#Función que tramita las preguntas recibidas, crea un prompt que incluye el texto base y las preguntas, envia el prompt a openai para generar la respuesta y devuelverla al usuario. 
+# Registramos el mensaje por id de usuario.
 @bot.message_handler(func=lambda message: True)
 def get_codex(message):
     question = str(message.text)
-    context = INSTRUCTIONS + "\n" + question + "\n"
-    #Diccionario que contiene los headers de solicitud a HTTP
-    headers = {
-        "Content-Type": "application/json",
-        "Ocp-Apim-Subscription-Key": text_analytics_subscription_key,
-    }
-    #Diccionario que contiene la data text que será enviada a azure. Contiene id, language y text
-    data = {
-        "documents": [
-            {
-                "id": "1",
-                "language": "es",
-                "text": question,
-            }
-        ]
-    }
-    response = requests.post(text_analytics_endpoint + "/text/analytics/v3.0-preview.1/entities/recognition/general", headers=headers, json=data)
-    if response.status_code == 200:
-        entities = response.json()["documents"][0]["entities"]
-        if entities:
-            # Reemplaza los entity placeholders con los actual entity names
-            context = context.replace("#LOC#", entities[0]["text"])
-            context = context.replace("#PER#", entities[1]["text"])
-            context = context.replace("#ORG#", entities[2]["text"])
-    #Método que envia solicitud a openai api con el 'context' del prompt, y retorna un objeto que contiene el texto generado.
+    user_id = message.from_user.id
+    context = f"User ID: {user_id}\n" + INSTRUCTIONS + "\n" + question + "\n"
     response = openai.Completion.create(
         engine="text-davinci-003",
         prompt=context,
@@ -78,10 +56,11 @@ def get_codex(message):
         presence_penalty=0.6,
         stop=None
     )
-    answer = response.choices[0].text.strip()
 
-    # Guarda la pregunta y respuesta en un archivo de texto, si no esta creado, se crea automaticamente. Separa el lote de preguntas y respuestas con espacios.
+    answer = response.choices[0].text.strip()
+    # Guarda la pregunta y respuesta en un archivo de texto, si no esta creado, se crea automaticamente. Separa el lote de preguntas y respuestas con espacios y por id de usuario.
     with open("preguntas_respuestas.txt", "a", encoding="utf-8") as file:
+        file.write(f"User ID: {user_id}\n")
         file.write(f"Pregunta: {question}\n")
         file.write(f"Respuesta: {answer}\n\n")
     bot.reply_to(message, answer)
