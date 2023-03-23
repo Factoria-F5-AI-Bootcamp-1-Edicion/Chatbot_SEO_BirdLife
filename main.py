@@ -5,6 +5,8 @@ from os import environ as env
 from dotenv import load_dotenv
 import telebot
 import logging
+import requests
+import json
 
 #Llamado de la función load_dotenv para descargar la variables guardadas en el archivo .env
 load_dotenv()
@@ -13,6 +15,11 @@ load_dotenv()
 openai.api_key = env["OPENAI_API_KEY"]
 #Insertar clave del telebot
 bot = telebot.TeleBot(env["BOT_API_KEY"])
+
+#Insertar endpoint de azure
+text_analytics_endpoint = env["TEXT_ANALYTICS_ENDPOINT"]
+#Insertar key de azure
+text_analytics_subscription_key = env["TEXT_ANALYTICS_SUBSCRIPTION_KEY"]
 
 #Con este statement se accede al archivo .txt que contine el texto base que empleará openai para elaborar las respuestas a las preguntas realizadas.
 with open('instructions.txt', 'r', encoding='utf-8') as f:
@@ -32,11 +39,35 @@ def send_welcome(message):
                       
     bot.reply_to(message, welcome_message)
 
-#Función que tramita las preguntas recibidas, crea un prompt que incluye el texto base y las preguntas, envia el prompt a openai para generar la respuesta y devuelva la respuesta al usuario.
+#Función que tramita las preguntas recibidas, crea un prompt que incluye el texto base y las preguntas, envia el prompt a openai para generar la respuesta y devuelverla al usuario.
 @bot.message_handler(func=lambda message: True)
 def get_codex(message):
     question = str(message.text)
     context = INSTRUCTIONS + "\n" + question + "\n"
+    #Diccionario que contiene los headers de solicitud a HTTP
+    headers = {
+        "Content-Type": "application/json",
+        "Ocp-Apim-Subscription-Key": text_analytics_subscription_key,
+    }
+    #Diccionario que contiene la data text que será enviada a azure. Contiene id, language y text
+    data = {
+        "documents": [
+            {
+                "id": "1",
+                "language": "es",
+                "text": question,
+            }
+        ]
+    }
+    response = requests.post(text_analytics_endpoint + "/text/analytics/v3.0-preview.1/entities/recognition/general", headers=headers, json=data)
+    if response.status_code == 200:
+        entities = response.json()["documents"][0]["entities"]
+        if entities:
+            # Reemplaza los entity placeholders con los actual entity names
+            context = context.replace("#LOC#", entities[0]["text"])
+            context = context.replace("#PER#", entities[1]["text"])
+            context = context.replace("#ORG#", entities[2]["text"])
+    #Método que envia solicitud a openai api con el 'context' del prompt, y retorna un objeto que contiene el texto generado.
     response = openai.Completion.create(
         engine="text-davinci-003",
         prompt=context,
@@ -47,8 +78,8 @@ def get_codex(message):
         presence_penalty=0.6,
         stop=None
     )
-
     answer = response.choices[0].text.strip()
+
     # Guarda la pregunta y respuesta en un archivo de texto, si no esta creado, se crea automaticamente. Separa el lote de preguntas y respuestas con espacios.
     with open("preguntas_respuestas.txt", "a", encoding="utf-8") as file:
         file.write(f"Pregunta: {question}\n")
@@ -79,3 +110,5 @@ def get_moderation(question):
 #Declaración que inicia el bot y lo mantiene activo para recibir nuevos mensajes.
 if __name__ == "__main__":
     bot.infinity_polling()
+
+
