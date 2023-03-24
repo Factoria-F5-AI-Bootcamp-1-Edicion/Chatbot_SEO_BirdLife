@@ -86,11 +86,9 @@ def get_moderation(question):
         return result
     return None
 
-<<<<<<< HEAD
+
 # Encapsular el proceso de inicialización del bot
-=======
-# encapsular el proceso de inicialización del bot
->>>>>>> 1d699ce1b4fccc934cb7f9f827df07543ae91702
+
 def main():
     # Eliminar webhook antes de empezar el sondeo
     bot.delete_webhook()
@@ -98,9 +96,5 @@ def main():
     bot.polling(none_stop=True)
 if __name__ == "__main__":
     main()
-<<<<<<< HEAD
-
-=======
->>>>>>> 1d699ce1b4fccc934cb7f9f827df07543ae91702
 
 
