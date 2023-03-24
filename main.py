@@ -86,8 +86,9 @@ def get_moderation(question):
         return result
     return None
 
-#Declaración que inicia el bot y lo mantiene activo para recibir nuevos mensajes.
-if __name__ == "__main__":
-    bot.infinity_polling()
+# encapsular el proceso de inicialización del bot
+def main():
+    # Eliminar webhook antes de empezar el sondeo
+    bot.delete_webhook()
 
 
