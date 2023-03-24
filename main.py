@@ -42,10 +42,8 @@ def get_codex(message):
     question = str(message.text)
     user_id = message.from_user.id
     context = f"User ID: {user_id}\n" + INSTRUCTIONS + "\n" + question + "\n"
-<<<<<<< HEAD
+
     #Método que envia solicitud a openai api con el 'context' del prompt, y retorna un objeto que contiene el texto generado.
-=======
->>>>>>> 1d699ce1b4fccc934cb7f9f827df07543ae91702
     response = openai.Completion.create(
         engine="text-davinci-003",
         prompt=context,
