@@ -90,5 +90,9 @@ def get_moderation(question):
 def main():
     # Eliminar webhook antes de empezar el sondeo
     bot.delete_webhook()
+    # Iniciar el bot
+    bot.polling(none_stop=True)
+if __name__ == "__main__":
+    main()
 
 
