@@ -16,10 +16,6 @@ openai.api_key = env["OPENAI_API_KEY"]
 #Insertar clave del telebot
 bot = telebot.TeleBot(env["BOT_API_KEY"])
 
-#Insertar endpoint de azure
-text_analytics_endpoint = env["TEXT_ANALYTICS_ENDPOINT"]
-#Insertar key de azure
-text_analytics_subscription_key = env["TEXT_ANALYTICS_SUBSCRIPTION_KEY"]
 
 #Con este statement se accede al archivo .txt que contine el texto base que empleará openai para elaborar las respuestas a las preguntas realizadas.
 with open('instructions.txt', 'r', encoding='utf-8') as f:
@@ -43,30 +39,8 @@ def send_welcome(message):
 @bot.message_handler(func=lambda message: True)
 def get_codex(message):
     question = str(message.text)
-    context = INSTRUCTIONS + "\n" + question + "\n"
-    #Diccionario que contiene los headers de solicitud a HTTP
-    headers = {
-        "Content-Type": "application/json",
-        "Ocp-Apim-Subscription-Key": text_analytics_subscription_key,
-    }
-    #Diccionario que contiene la data text que será enviada a azure. Contiene id, language y text
-    data = {
-        "documents": [
-            {
-                "id": "1",
-                "language": "es",
-                "text": question,
-            }
-        ]
-    }
-    response = requests.post(text_analytics_endpoint + "/text/analytics/v3.0-preview.1/entities/recognition/general", headers=headers, json=data)
-    if response.status_code == 200:
-        entities = response.json()["documents"][0]["entities"]
-        if entities:
-            # Reemplaza los entity placeholders con los actual entity names
-            context = context.replace("#LOC#", entities[0]["text"])
-            context = context.replace("#PER#", entities[1]["text"])
-            context = context.replace("#ORG#", entities[2]["text"])
+    user_id = message.from_user.id
+    context = f"User ID: {user_id}\n" + INSTRUCTIONS + "\n" + question + "\n"
     #Método que envia solicitud a openai api con el 'context' del prompt, y retorna un objeto que contiene el texto generado.
     response = openai.Completion.create(
         engine="text-davinci-003",
@@ -107,8 +81,14 @@ def get_moderation(question):
         return result
     return None
 
-#Declaración que inicia el bot y lo mantiene activo para recibir nuevos mensajes.
+# Encapsular el proceso de inicialización del bot
+def main():
+    # Eliminar webhook antes de empezar el sondeo
+    bot.delete_webhook()
+    # Iniciar el bot
+    bot.polling(none_stop=True)
 if __name__ == "__main__":
-    bot.infinity_polling()
+    main()
+
 
 
