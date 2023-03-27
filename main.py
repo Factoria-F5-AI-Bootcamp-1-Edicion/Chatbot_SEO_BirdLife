@@ -7,7 +7,7 @@ import telebot
 import logging
 import requests
 import json
-
+import datetime
 #Llamado de la función load_dotenv para descargar la variables guardadas en el archivo .env
 load_dotenv()
 
@@ -36,13 +36,14 @@ def send_welcome(message):
     bot.reply_to(message, welcome_message)
 
 #Función que tramita las preguntas recibidas, crea un prompt que incluye el texto base y las preguntas, envia el prompt a openai para generar la respuesta y devuelverla al usuario. 
-# Registramos el mensaje por id de usuario.
+# Registramos el mensaje por id de usuario con fecha y hora.
 @bot.message_handler(func=lambda message: True)
 def get_codex(message):
     question = str(message.text)
     user_id = message.from_user.id
-    context = f"User ID: {user_id}\n" + INSTRUCTIONS + "\n" + question + "\n"
-    #Método que envia solicitud a openai api con el 'context' del prompt, y retorna un objeto que contiene el texto generado.
+    now = datetime.datetime.now()
+    timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
+    context = f"User ID: {user_id}\n" + INSTRUCTIONS + "\n" + question + "\n" + f"Timestamp: {timestamp}\n"
     response = openai.Completion.create(
         engine="text-davinci-003",
         prompt=context,
@@ -53,13 +54,13 @@ def get_codex(message):
         presence_penalty=0.6,
         stop=None
     )
-
     answer = response.choices[0].text.strip()
-    # Guarda la pregunta y respuesta en un archivo de texto, si no esta creado, se crea automaticamente. Separa el lote de preguntas y respuestas con espacios y por id de usuario.
     with open("preguntas_respuestas.txt", "a", encoding="utf-8") as file:
         file.write(f"User ID: {user_id}\n")
+        file.write(f"Fecha y hora: {timestamp}\n")
         file.write(f"Pregunta: {question}\n")
         file.write(f"Respuesta: {answer}\n\n")
+
     bot.reply_to(message, answer)
 
 #Esta función toma la pregunta del usuario como input, se la envia al api moderation de openai y retorna una lista de flag content si la pregunta viola la politica de moderación.
