@@ -83,7 +83,7 @@ def get_instructions():
 def get_codex(message):
     question = str(message.text)
     user_id = message.from_user.id
-    now = datetime.datetime.now()
+    now = datetime.now()
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
     context = f"User ID: {user_id}\n" + "fTimestamp: {timestamp}\n" + get_instructions() + "/n" + question + "\n\n"
 
