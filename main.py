@@ -7,8 +7,12 @@ import telebot
 import logging
 import requests
 import json
+import pymongo
 import datetime
+from datetime import datetime
 import redis
+from cachetools import TTLCache
+
 #Llamado de la función load_dotenv para descargar la variables guardadas en el archivo .env
 load_dotenv()
 
@@ -99,7 +103,7 @@ def get_codex(message):
         )
         answer = response.choices[0].text.strip()
         #La caché de Redis para guardar las respuestas
-        redis_conn.set(question, answer) 
+        redis_conn.set(question, answer)
 
     bot.reply_to(message, answer)
     # Almacenar la conversación en MongoDB
