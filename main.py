@@ -132,6 +132,29 @@ def get_moderation(question):
         return result
     return None
 
+# Función conexión a mongodb
+def store_chatbot_conversation(database_bot, collection_bot, user_id, user_question, chatbot_response):
+    # Conectarse al servidor de MongoDB
+    client = pymongo.MongoClient("mongodb://localhost:27017/")
+
+    # Acceder a la base de datos y a la colección
+    db = client[database_bot]
+    collection = db[collection_bot]
+
+    # Crear un documento con la conversación y la fecha y hora actual
+    conversation = {
+        "user_id": user_id,
+        "user_question": user_question,
+        "chatbot_response": chatbot_response,
+        "datetime": datetime.now() # Classmethod que retorna la fecha y hora local actual.
+
+    }
+
+    # Insertar el documento en la colección
+    result = collection.insert_one(conversation)
+
+    # Imprimir el ID del documento insertado
+    print("Conversación insertado con éxito. ID:", result.inserted_id)
 
 # Encapsular el proceso de inicialización del bot
 def main():
