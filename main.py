@@ -101,15 +101,9 @@ def get_codex(message):
         #La caché de Redis para guardar las respuestas
         redis_conn.set(question, answer) 
 
-
-
-    with open("preguntas_respuestas.txt", "a", encoding="utf-8") as file:
-        file.write(f"User ID: {user_id}\n")
-        file.write(f"Fecha y hora: {timestamp}\n")
-        file.write(f"Pregunta: {question}\n")
-        file.write(f"Respuesta: {answer}\n\n")
-
     bot.reply_to(message, answer)
+    # Almacenar la conversación en MongoDB
+    store_chatbot_conversation("database_bot", "collection_bot", user_id, question, answer)
 
 #Esta función toma la pregunta del usuario como input, se la envia al api moderation de openai y retorna una lista de flag content si la pregunta viola la politica de moderación.
 def get_moderation(question):
