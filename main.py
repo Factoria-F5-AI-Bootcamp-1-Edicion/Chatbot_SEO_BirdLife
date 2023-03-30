@@ -20,10 +20,10 @@ load_dotenv()
 openai.api_key = env["OPENAI_API_KEY"]
 #Insertar clave del telebot
 bot = telebot.TeleBot(env["BOT_API_KEY"])
-#La parte de chaché de Redis
+#La parte de caché de Redis
 redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
 redis_conn = redis.from_url(redis_url)
-
+mongodb_url = os.getenv("MONGO_URI")
 
 # Verificar si las claves están definidas
 if not env.get("OPENAI_API_KEY"):
@@ -133,7 +133,7 @@ def get_moderation(question):
 # Función conexión a mongodb
 def store_chatbot_conversation(database_bot, collection_bot, user_id, user_question, chatbot_response):
     # Conectarse al servidor de MongoDB
-    client = pymongo.MongoClient("mongodb://localhost:27017/")
+    client = pymongo.MongoClient(mongodb_url)
 
     # Acceder a la base de datos y a la colección
     db = client[database_bot]
