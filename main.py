@@ -21,9 +21,11 @@ openai.api_key = env["OPENAI_API_KEY"]
 #Insertar clave del telebot
 bot = telebot.TeleBot(env["BOT_API_KEY"])
 #La parte de caché de Redis
-redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
-redis_conn = redis.from_url(redis_url)
+#redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
+#redis_conn = redis.from_url(redis_url)
 mongodb_url = os.getenv("MONGO_URI")
+redis_url = os.getenv ("REDIS_URL")
+r = redis.Redis.from_url(redis_url)
 
 # Verificar si las claves están definidas
 if not env.get("OPENAI_API_KEY"):
@@ -88,8 +90,8 @@ def get_codex(message):
     context = f"User ID: {user_id}\n" + "fTimestamp: {timestamp}\n" + get_instructions() + "/n" + question + "\n\n"
 
     #Primero revisa en la caché si tiene la respuesta similar, sino, la crea con Openai
-    if redis_conn.get(question):
-        answer = redis_conn.get(question).decode('utf-8')
+    if r.get(question):
+        answer = r.get(question).decode('utf-8')
     else:
         response = openai.Completion.create(
             engine="text-davinci-003",
@@ -103,7 +105,7 @@ def get_codex(message):
         )
         answer = response.choices[0].text.strip()
         #La caché de Redis para guardar las respuestas
-        redis_conn.set(question, answer)
+        r.set(question, answer)
 
     bot.reply_to(message, answer)
     # Almacenar la conversación en MongoDB
