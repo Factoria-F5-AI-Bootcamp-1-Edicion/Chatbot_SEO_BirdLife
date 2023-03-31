@@ -20,12 +20,15 @@ load_dotenv()
 openai.api_key = env["OPENAI_API_KEY"]
 #Insertar clave del telebot
 bot = telebot.TeleBot(env["BOT_API_KEY"])
-#La parte de caché de Redis
-#redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
-#redis_conn = redis.from_url(redis_url)
+#Insertar clave de Mongo
 mongodb_url = os.getenv("MONGO_URI")
-redis_url = os.getenv ("REDIS_URL")
-r = redis.Redis.from_url(redis_url)
+#Insertar claves de redis
+redis_host = os.getenv ("redis_host")
+redis_port = os.getenv ("redis_port")
+redis_password = os.getenv ("redis_password")
+
+#Llamada para la conexion con redis en azure
+r = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, ssl=True)
 
 # Verificar si las claves están definidas
 if not env.get("OPENAI_API_KEY"):
@@ -43,7 +46,7 @@ try:
 except TypeError:
     print("La clave de API del bot de Telegram no es válida.")
     
-#Con este statement se accede al archivo .txt que contine el texto base que empleará openai para elaborar las respuestas a las preguntas realizadas.
+#Acceso al archivo .txt que contine el texto base que empleará las respuestas a las preguntas realizadas.
 try:
     with open('instructions.txt', 'r', encoding='utf-8') as f:
         INSTRUCTIONS = f.read().strip()
@@ -54,8 +57,8 @@ except FileNotFoundError:
 cache = TTLCache(maxsize=100, ttl=1209600)
 
 #Sistema de logging
-logging.basicConfig(filename='bot.log', level=logging.INFO, format='Date-Time : %(asctime)s : Line No. : %(lineno)d - %(message)s',filemode='w')
-logging.getLogger().setLevel(logging.WARNING)
+logging.basicConfig(filename='bot.log', level=logging.DEBUG, format='Date-Time : %(asctime)s : Line No. : %(lineno)d - %(message)s',filemode='w')
+
 
 # Registro de la función que responde a los comandos /start /help. Cuando alguno de los comandos es recibido se envia un mensaje de bienvenida
 @bot.message_handler(commands=['start', 'help'])
@@ -79,8 +82,7 @@ def get_instructions():
             cache['INSTRUCTIONS'] = INSTRUCTIONS
             return INSTRUCTIONS
         
-#Función que tramita las preguntas recibidas, crea un prompt que incluye el texto base y las preguntas, envia el prompt a openai para generar la respuesta y devuelverla al usuario. 
-# Registramos el mensaje por id de usuario con fecha y hora.
+#Función que tramita las preguntas recibidas, grabamos las respuestas y lasregistramos el mensaje por id de usuario con fecha y hora.
 @bot.message_handler(func=lambda message: True)
 def get_codex(message):
     question = str(message.text)
@@ -104,7 +106,7 @@ def get_codex(message):
             stop=None
         )
         answer = response.choices[0].text.strip()
-        #La caché de Redis para guardar las respuestas
+        #Caché de Redis para guardar las respuestas
         r.set(question, answer)
 
     bot.reply_to(message, answer)
