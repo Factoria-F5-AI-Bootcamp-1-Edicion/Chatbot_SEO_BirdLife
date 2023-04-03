@@ -1,7 +1,7 @@
 <h1 align="center">
   <p align="center">PIABOT: La historia detrás de la creación del chatbot inteligente de SEO BirdLife en Telegram
 </p>
-  <img align="center" width="50%" src="https://user-images.githubusercontent.com/108665441/229526033-503d5f12-ace1-48b3-a4f0-d4edd314bc56.png">
+  <img align="center" width="80%" src="https://user-images.githubusercontent.com/108665441/229526033-503d5f12-ace1-48b3-a4f0-d4edd314bc56.png">
 </h1>
 
 # :clipboard: Descripción del proyecto
@@ -33,7 +33,7 @@ El proyecto se encuentra en estado funcional, pero existen oportunidades de mejo
 git clone https://github.com/usuario/nombre-repositorio.git
 ```
 
-## 🛠️ Abre y ejecuta el proyecto
+## 🛠️ Abre y ejecuta el proyecto en 5 pasos
 
 **1. Crea un entorno específicamente para este proyecto con Conda o Venv:**
 + **Conda:**
@@ -67,12 +67,24 @@ source nombredetuentorno/bin/activate
 pip install -r requirements.txt
 ```
 
-**3. Situate en la carpeta que contiene los archivos y desde allí ejecute:**
+**3. Crea un archivo .env para guardar el token de Telegram, Key de Api Openai, conexión principal a Mongo y Redis en Azure. Recuerda que este archivo debe estar incluido en *.gitignore*:
+
+```
+OPENAI_API_KEY = "Tu api key de Openai"
+BOT_API_KEY ="Tu token de bot de telegram"
+MONGO_URI = "Conexión de Mongo en Azure"
+
+redis_host= "Host de Redis en Azure"
+redis_port= "Puerto"
+redis_password="Key de Redis en azure"
+```
+
+**4. Situate en la carpeta que contiene los archivos y desde allí ejecute:**
 
 ```
 python3 main.py
 ```
-**4. Y ¡listo! nuestro chatbot inteligente estará funcionando 🤖**
+**5. Y ¡listo! nuestro chatbot inteligente estará funcionando 🤖**
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/108665441/229521453-6f06ed07-fb58-4ea1-b796-b9d4d737c2ab.png" width="25%">
