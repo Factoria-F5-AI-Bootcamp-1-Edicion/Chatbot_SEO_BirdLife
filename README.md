@@ -79,7 +79,7 @@ redis_host= "Host de Redis en Azure"
 redis_port= "Puerto"
 redis_password="Key de Redis en azure"
 ```
-**4. Nuestro script hace uso de un prompt por lo que será necesario crear un archivo `instructions.txt`donde puedas albergar tu información.**
+**4. Nuestro script hace uso de un prompt por lo que será necesario crear un archivo `instructions.txt`.**
 
 **5. Situate en la carpeta que contiene los archivos y desde allí ejecute:**
 
