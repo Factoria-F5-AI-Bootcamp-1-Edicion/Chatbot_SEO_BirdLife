@@ -78,7 +78,7 @@ python3 main.py
 + [Alexandra Mendoza](https://www.linkedin.com/in/alexandra-mendoza-malasquez/)
 + [Ana de Córdoba](https://www.linkedin.com/in/anadecordoba/)
 + [Henry Suárez](https://www.linkedin.com/in/henry-su%C3%A1rez-b60419256/)
- [Pablo Ruano](https://www.linkedin.com/in/pabloruanosainz/)
++ [Pablo Ruano](https://www.linkedin.com/in/pabloruanosainz/)
 
 <p align="center"><em>¡Protege las aves con la ayuda de <strong>PIABOT</strong>, el chatbot inteligente de SEO BirdLife!</em></p>
 
