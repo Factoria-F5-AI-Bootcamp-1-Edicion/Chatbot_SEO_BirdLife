@@ -75,7 +75,10 @@ python3 main.py
 ```
 **4. Y ¡listo! nuestro chatbot inteligente estará funcionando 🤖**
 
-<img src="https://user-images.githubusercontent.com/108665441/229521453-6f06ed07-fb58-4ea1-b796-b9d4d737c2ab.png" width="50%">
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/108665441/229521453-6f06ed07-fb58-4ea1-b796-b9d4d737c2ab.png" width="25%">
+</p>
+
 
 # :wrench: Tecnologías usadas:
 
