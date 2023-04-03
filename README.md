@@ -1,7 +1,7 @@
 <h1 align="center">
   <p align="center">PIABOT: La historia detrás de la creación del chatbot inteligente de SEO BirdLife en Telegram
 </p>
-  <img align="center" width="100" src="https://user-images.githubusercontent.com/108665441/229526033-503d5f12-ace1-48b3-a4f0-d4edd314bc56.png">
+  <img align="center" width="100%" src="https://user-images.githubusercontent.com/108665441/229526033-503d5f12-ace1-48b3-a4f0-d4edd314bc56.png">
 </h1>
 
 # :clipboard: Descripción del proyecto
