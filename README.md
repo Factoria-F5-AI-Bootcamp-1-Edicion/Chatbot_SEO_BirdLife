@@ -21,9 +21,9 @@ El proyecto se encuentra en estado funcional, pero existen oportunidades de mejo
 
 ## :wrench: Funcionalidades del proyecto
 
-- `Funcionalidad 1`: reconocimiento de lenguaje natural para brindar una respuesta personalizada a cada consulta.
-- `Funcionalidad 2`: brinda información sobre qué hacer si se encuentra un pollito fuera de su nido.
-- `Funcionalidad 3`: integración con Telegram para una experiencia de uso más amigable y accesible.
+- `Funcionalidad 1`: brinda información sobre qué hacer si se encuentra un pollito fuera de su nido.
+- `Funcionalidad 2`: integración con Telegram para una experiencia de uso más amigable y accesible.
+- `Funcionalidad 3`: reconocimiento de lenguaje natural para brindar una respuesta personalizada a cada consulta.
 
 ## 📁 Acceso al proyecto
 
