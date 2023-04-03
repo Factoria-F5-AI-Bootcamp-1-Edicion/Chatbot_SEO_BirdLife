@@ -79,14 +79,14 @@ redis_host= "Host de Redis en Azure"
 redis_port= "Puerto"
 redis_password="Key de Redis en azure"
 ```
-**4. Nuestro script hace uso de un prompt personalizado por lo que será necesario crear un archivo `instructions.txt`donde puedas albergar tu información.
+**4. Nuestro script hace uso de un prompt por lo que será necesario crear un archivo `instructions.txt`donde puedas albergar tu información.**
 
 **5. Situate en la carpeta que contiene los archivos y desde allí ejecute:**
 
 ```
 python3 main.py
 ```
-**5. Y ¡listo! nuestro chatbot inteligente estará funcionando 🤖**
+**6. Y ¡listo! nuestro chatbot inteligente estará funcionando 🤖**
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/108665441/229521453-6f06ed07-fb58-4ea1-b796-b9d4d737c2ab.png" width="25%">
