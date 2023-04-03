@@ -31,6 +31,12 @@ PiaBot es un juego de palabras en el que hace referencia a los pollitos, la inte
 |   Henry Suárez    | ![Henry](https://example.com/carlosruiz.jpg) | [Henry Suárez](https://www.linkedin.com/in/henry-su%C3%A1rez-b60419256/) |
 |    Pablo Ruano    | ![Pablo](https://example.com/carlosruiz.jpg) | [Pablo Ruano](https://www.linkedin.com/in/pabloruanosainz/) |
 
+|     |     |     |     |
+| --- | --- | --- | --- |
+| ![Foto1](url_foto1) | **Alexandra Mendoza**<br> [Alexandra]() | ![Foto2](url_foto2) | **Nombre2**<br> [Linkedin2](url_linkedin2) |
+| ![Foto3](url_foto3) | **Ana de Córdoba**<br> [Linkedin3](url_linkedin3) | ![Foto4](url_foto4) | **Nombre4**<br> [Linkedin4](url_linkedin4) |
+
+
 FINAL
 <p align="center"><em>¡Protege las aves con la ayuda de <strong>PIABOT</strong>, el chatbot inteligente de SEO BirdLife!</em></p>
 
