@@ -28,45 +28,54 @@ El proyecto se encuentra en estado funcional, pero existen oportunidades de mejo
 
 ## 📁 Acceso al proyecto
 
-*Descarga el contenido del repositorio* >> [Chatbot_SEO_BirdLife](https://github.com/Factoria-F5-AI-Bootcamp-1-Edicion/Chatbot_SEO_BirdLife.git)
+*Clona el contenido del repositorio* >> [Chatbot_SEO_BirdLife](https://github.com/Factoria-F5-AI-Bootcamp-1-Edicion/Chatbot_SEO_BirdLife.git)
+
+```
+git clone https://github.com/usuario/nombre-repositorio.git
+```
 
 ## 🛠️ Abre y ejecuta el proyecto
 
-1. Crea un entorno específicamente para este proyecto con Conda o Venv:
-  1.1. Conda:
+**1. Crea un entorno específicamente para este proyecto con Conda o Venv:**
++ **Conda:**
 ```
 conda create -n nombreEntorno
 ```
-Y activar el entorno:
+Activar el entorno:
 ```
 conda activate nombre-del-entorno
 ```
-  1.2. Venv:
-Después de ubicarte en la carpeta donde quieres crear tu entorno, ingresa el siguiente comando:
++ **Venv:**
+
+Situate en la carpeta donde quieres crear tu entorno e ingresa el siguiente comando:
+
 ```
 python -m venv nombredetuentorno
 ```
 Activa el entorno virtual 
-Windows:
++ **Windows:**
 ```
 nombredetuentorno\Scripts\activate.bat
 ```
-Mac o Linux:
++ **Mac o Linux:**
 ```
 source nombredetuentorno/bin/activate
 ```
-2. Dentro de este entorno debes instalar todas las librerías necesarias con la siguiente línea de comando:
+
+**2. Dentro de este entorno debes instalar todas las librerías necesarias con la siguiente línea de comando:**
+
 ```
 pip install -r requirements.txt
 ```
-3. Situate en la carpeta que contiene los archivos y desde allí ejecute:
+
+**3. Situate en la carpeta que contiene los archivos y desde allí ejecute:**
+
 ```
 python3 main.py
 ```
 
 # :wrench: Tecnologías usadas:
 
-   - **Metodología Scrum:** Trello ()
    - **Desarrollo:** 
    - **Documentación:** [Notion](https://www.notion.so/PiaBot-5774b2b4ccfb49669a1df3693c9389ef)
    - **Presentación:** 
