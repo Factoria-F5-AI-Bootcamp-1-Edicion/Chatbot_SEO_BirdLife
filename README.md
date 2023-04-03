@@ -18,19 +18,67 @@ PIABOT es un juego de palabras que hace referencia a los pollitos y la inteligen
 # :mechanical_arm: Estado del proyecto
 :white_check_mark: Proyecto en funcionamiento :white_check_mark:
 
-El proyecto se encuentra en un estado funcional, pero existen oportunidades de mejora para optimizar su rendimiento y ofrecer una experiencia de alta calidad. Para lograr esto, se requiere adquirir servicios premium de la API de OpenAI, Azure Redis y MongoDB. Esto es especialmente importante para empresas que manejan grandes cantidades de datos y requieren un alto nivel de confiabilidad y seguridad en su infraestructura de bases de datos.
+El proyecto se encuentra en estado funcional, pero existen oportunidades de mejora para optimizar su rendimiento y ofrecer una experiencia de alta calidad. Para lograr esto, se requiere adquirir servicios premium de la API de OpenAI, Azure Redis y MongoDB. Esto es especialmente importante para empresas que manejan grandes cantidades de datos y requieren un alto nivel de confiabilidad y seguridad en su infraestructura de bases de datos.
 
 ## :wrench: Funcionalidades del proyecto
 
 - `Funcionalidad 1`: reconocimiento de lenguaje natural para brindar una respuesta personalizada a cada consulta.
 - `Funcionalidad 2`: brinda información sobre qué hacer si se encuentra un pollito fuera de su nido.
-- `Funcionalidad 3`: ntegración con Telegram para una experiencia de uso más amigable y accesible.
+- `Funcionalidad 3`: integración con Telegram para una experiencia de uso más amigable y accesible.
 
 ## 📁 Acceso al proyecto
 
 *Descarga el contenido del repositorio* >> [Chatbot_SEO_BirdLife](https://github.com/Factoria-F5-AI-Bootcamp-1-Edicion/Chatbot_SEO_BirdLife.git)
 
+## 🛠️ Abre y ejecuta el proyecto
 
+1. Crea un entorno específicamente para este proyecto con Conda o Venv:
+  1.1. Conda:
+```
+conda create -n nombreEntorno
+```
+Y activar el entorno:
+```
+conda activate nombre-del-entorno
+```
+  1.2. Venv:
+Después de ubicarte en la carpeta donde quieres crear tu entorno, ingresa el siguiente comando:
+```
+python -m venv nombredetuentorno
+```
+Activa el entorno virtual 
+Windows:
+```
+nombredetuentorno\Scripts\activate.bat
+```
+Mac o Linux:
+```
+source nombredetuentorno/bin/activate
+```
+2. Dentro de este entorno debes instalar todas las librerías necesarias con la siguiente línea de comando:
+```
+pip install -r requirements.txt
+```
+3. Situate en la carpeta que contiene los archivos y desde allí ejecute:
+```
+python3 main.py
+```
+
+# :wrench: Tecnologías usadas:
+
+   - **Metodología Scrum:** Trello ()
+   - **Desarrollo:** 
+   - **Documentación:** [Notion](https://www.notion.so/PiaBot-5774b2b4ccfb49669a1df3693c9389ef)
+   - **Presentación:** 
+
+## Autores
+![equipo]()
+
+## :mailbox:Contacta con nosotros:
++ [Alexandra Mendoza](https://www.linkedin.com/in/alexandra-mendoza-malasquez/)
++ [Ana de Córdoba](https://www.linkedin.com/in/anadecordoba/)
++ [Henry Suárez](https://www.linkedin.com/in/henry-su%C3%A1rez-b60419256/)
+ [Pablo Ruano](https://www.linkedin.com/in/pabloruanosainz/)
 
 <p align="center"><em>¡Protege las aves con la ayuda de <strong>PIABOT</strong>, el chatbot inteligente de SEO BirdLife!</em></p>
 
