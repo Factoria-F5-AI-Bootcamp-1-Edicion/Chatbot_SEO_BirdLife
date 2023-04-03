@@ -5,13 +5,12 @@ from os import environ as env
 from dotenv import load_dotenv
 import telebot
 import logging
-import requests
-import json
 import pymongo
 import datetime
 from datetime import datetime
 import redis
 from cachetools import TTLCache
+import sys
 
 #Llamado de la función load_dotenv para descargar la variables guardadas en el archivo .env
 load_dotenv()
@@ -27,8 +26,6 @@ redis_host = os.getenv ("redis_host")
 redis_port = os.getenv ("redis_port")
 redis_password = os.getenv ("redis_password")
 
-#Llamada para la conexion con redis en azure
-r = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, ssl=True)
 
 # Verificar si las claves están definidas
 if not env.get("OPENAI_API_KEY"):
@@ -36,22 +33,37 @@ if not env.get("OPENAI_API_KEY"):
 if not env.get("BOT_API_KEY"):
     print("La clave de API del bot de Telegram no está definida en las variables de entorno.")
 
-# Configurar OpenAI y Telegram bot si las claves están definidas
+# Control de excepciones de la API KEY de OpenAI
 try:
     openai.api_key = env["OPENAI_API_KEY"]
 except TypeError:
     print("La clave de API de OpenAI no es válida.")
+    logging.critical("La clave de API de OpenAI no está definida en las variables de entorno.")
+    sys.exit()
+# Control de excepciones de Token de Telegram
 try:
     bot = telebot.TeleBot(env["BOT_API_KEY"])
 except TypeError:
     print("La clave de API del bot de Telegram no es válida.")
-    
+    logging.critical("La clave de API del bot de Telegram no está definida en las variables de entorno.")
+    sys.exit()
+# Control de excepciones de claves de Redis
+try:
+    r = redis.StrictRedis(host=redis_host, port=redis_port, password=redis_password, ssl=True)
+except (redis.exceptions.ConnectionError, ValueError):
+    print("No se pudo conectar a Redis con las credenciales proporcionadas.")
+    logging.critical("No se pudo conectar a Redis con las credenciales proporcionadas.")
+    sys.exit()
+
+
 #Acceso al archivo .txt que contine el texto base que empleará las respuestas a las preguntas realizadas.
 try:
     with open('instructions.txt', 'r', encoding='utf-8') as f:
         INSTRUCTIONS = f.read().strip()
 except FileNotFoundError:
     print("El archivo 'instructions.txt' no se encontró en el directorio actual.")
+    logging.critical("El archivo 'instructions.txt' no se encontró en el directorio actual.")
+    sys.exit()
 
 # Variable de caché configurada con 14 días
 cache = TTLCache(maxsize=100, ttl=1209600)
@@ -156,7 +168,7 @@ def store_chatbot_conversation(database_bot, collection_bot, user_id, user_quest
     result = collection.insert_one(conversation)
 
     # Imprimir el ID del documento insertado
-    print("Conversación insertado con éxito. ID:", result.inserted_id)
+    print("Conversación insertada con éxito. ID:", result.inserted_id)
 
 # Encapsular el proceso de inicialización del bot
 def main():
