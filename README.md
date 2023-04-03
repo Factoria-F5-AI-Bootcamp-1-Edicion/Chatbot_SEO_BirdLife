@@ -20,7 +20,7 @@ PIABOT es un juego de palabras que hace referencia a los pollitos y la inteligen
 
 El proyecto se encuentra en un estado funcional, pero existen oportunidades de mejora para optimizar su rendimiento y ofrecer una experiencia de alta calidad. Para lograr esto, se requiere adquirir servicios premium de la API de OpenAI, Azure Redis y MongoDB. Esto es especialmente importante para empresas que manejan grandes cantidades de datos y requieren un alto nivel de confiabilidad y seguridad en su infraestructura de bases de datos.
 
-## :white_check_mark: Funcionalidades del proyecto
+## :wrench: Funcionalidades del proyecto
 
 - `Funcionalidad 1`: reconocimiento de lenguaje natural para brindar una respuesta personalizada a cada consulta.
 - `Funcionalidad 2`: brinda información sobre qué hacer si se encuentra un pollito fuera de su nido.
