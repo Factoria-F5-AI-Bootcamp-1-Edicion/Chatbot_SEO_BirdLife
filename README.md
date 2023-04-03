@@ -36,7 +36,8 @@ git clone https://github.com/usuario/nombre-repositorio.git
 ## 🛠️ Abre y ejecuta el proyecto en 5 pasos
 
 **1. Crea un entorno específicamente para este proyecto con Conda o Venv:**
-+ **Conda:**
+
++ **OPCIÓN 1: Conda:**
 ```
 conda create -n nombreEntorno
 ```
@@ -44,7 +45,7 @@ Activar el entorno:
 ```
 conda activate nombre-del-entorno
 ```
-+ **Venv:**
++ **OPCIÓN 2: Venv:**
 
 Situate en la carpeta donde quieres crear tu entorno e ingresa el siguiente comando:
 
@@ -67,7 +68,7 @@ source nombredetuentorno/bin/activate
 pip install -r requirements.txt
 ```
 
-**3. Crea un archivo .env para guardar el token de Telegram, Key de Api Openai, conexión principal a Mongo y Redis en Azure. Recuerda que este archivo debe estar incluido en *.gitignore*:
+**3. Crea un archivo .env para guardar el token de Telegram, Key de Api Openai, conexión principal a Mongo y Redis en Azure. Recuerda que este archivo debe estar incluido en *.gitignore*:**
 
 ```
 OPENAI_API_KEY = "Tu api key de Openai"
@@ -78,8 +79,9 @@ redis_host= "Host de Redis en Azure"
 redis_port= "Puerto"
 redis_password="Key de Redis en azure"
 ```
+**4. Nuestro script hace uso de un prompt personalizado por lo que será necesario crear un archivo `instructions.txt`donde puedas albergar tu información.
 
-**4. Situate en la carpeta que contiene los archivos y desde allí ejecute:**
+**5. Situate en la carpeta que contiene los archivos y desde allí ejecute:**
 
 ```
 python3 main.py
