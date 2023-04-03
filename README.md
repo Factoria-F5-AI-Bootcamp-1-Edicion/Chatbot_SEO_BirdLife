@@ -33,7 +33,7 @@ El proyecto se encuentra en estado funcional, pero existen oportunidades de mejo
 git clone https://github.com/usuario/nombre-repositorio.git
 ```
 
-## 🛠️ Abre y ejecuta el proyecto en 5 pasos
+## 🛠️ Abre y ejecuta el proyecto 
 
 **1. Crea un entorno específicamente para este proyecto con Conda o Venv:**
 
