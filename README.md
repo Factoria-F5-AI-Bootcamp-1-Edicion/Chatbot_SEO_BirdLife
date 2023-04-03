@@ -33,8 +33,8 @@ PiaBot es un juego de palabras en el que hace referencia a los pollitos, la inte
 
 |     |     |     |     |
 | --- | --- | --- | --- |
-| ![Foto1](url_foto1) | **Alexandra Mendoza**<br> [Alexandra]() | ![Foto2](url_foto2) | **Nombre2**<br> [Linkedin2](url_linkedin2) |
-| ![Foto3](url_foto3) | **Ana de Córdoba**<br> [Linkedin3](url_linkedin3) | ![Foto4](url_foto4) | **Nombre4**<br> [Linkedin4](url_linkedin4) |
+| ![Foto1](url_foto1) | **Alexandra Mendoza**<br> [Alexandra Mendoza](https://www.linkedin.com/in/alexandra-mendoza-malasquez/) | ![Foto2](url_foto2) | **Ana de Córdoba**<br> [Ana de Córdoba]([url_linkedin2](https://www.linkedin.com/in/anadecordoba/)) |
+| ![Foto3](url_foto3) | **Henry Suárez**<br> [Henry Suárez]([url_linkedin3](https://www.linkedin.com/in/henry-su%C3%A1rez-b60419256/)) | ![Foto4](url_foto4) | **Pablo Ruano**<br> [Pablo Ruano]([url_linkedin4](https://www.linkedin.com/in/pabloruanosainz/)) |
 
 
 FINAL
