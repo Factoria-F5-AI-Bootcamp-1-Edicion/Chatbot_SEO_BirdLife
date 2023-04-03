@@ -73,12 +73,14 @@ pip install -r requirements.txt
 ```
 python3 main.py
 ```
+**4. Y ¡listo! nuestro chatbot inteligente estará funcionando 🤖
+![telegram](https://user-images.githubusercontent.com/108665441/229521453-6f06ed07-fb58-4ea1-b796-b9d4d737c2ab.png)
 
 # :wrench: Tecnologías usadas:
 
-   - **Desarrollo:** 
+   - **Desarrollo:** DaVinci de OpenAI, Telebot, Pymongo, Redis, Azure Redis, Azure MongoDB.
    - **Documentación:** [Notion](https://www.notion.so/PiaBot-5774b2b4ccfb49669a1df3693c9389ef)
-   - **Presentación:** 
+   - **Presentación:** [Canva](https://www.canva.com/design/DAFfC6VpyJA/v7fzxCaGd_5JzFs-MtbjJw/watch?utm_content=DAFfC6VpyJA&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 
 ## Autores
 ![equipo]()
