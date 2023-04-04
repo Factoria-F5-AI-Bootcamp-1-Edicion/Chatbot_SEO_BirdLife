@@ -12,7 +12,7 @@ El proyecto fue desarrollado por alumnos de Factoria F5 AI Bootcamp en colaborac
 
 ## Significado de PIABOT :baby_chick:
 
-PIABOT es un juego de palabras que hace referencia a los pollitos y la inteligencia artificial utilizada en el chatbot.
+PIABOT es un acrónimo que hace referencia a los pollitos y la inteligencia artificial utilizada en el chatbot.
 
 # :mechanical_arm: Estado del proyecto
 :white_check_mark: Proyecto en funcionamiento :white_check_mark:
