@@ -11,6 +11,8 @@ from datetime import datetime
 import redis
 from cachetools import TTLCache
 import sys
+import backoff
+from openai.error import RateLimitError
 
 #Llamado de la función load_dotenv para descargar la variables guardadas en el archivo .env
 load_dotenv()
@@ -106,8 +108,13 @@ def get_instructions():
             cache['INSTRUCTIONS'] = INSTRUCTIONS
             return INSTRUCTIONS
         
-#Función que tramita las preguntas recibidas, graba las respuestas y registra el mensaje por id de usuario con fecha y hora.
+# El decorador de telebot se ejecutará para cada mensaje entrante sin importar su contenido. La función lambda siempre devuelve verdadero para cualquier mensaje entrante
 @bot.message_handler(func=lambda message: True)
+
+# El decorador de backoff permite que el código intente la solicitud de forma segura y automática hasta un número máximo de veces cuando se encuentra un error de límite de llamadas a la API. Se limita el número de intentos y el tiempo de espera
+@backoff.on_exception(backoff.expo, RateLimitError, max_tries=10, max_time=60)
+
+#Función que tramita las preguntas recibidas, graba las respuestas y registra el mensaje por id de usuario con fecha y hora.
 def get_codex(message):
     question = str(message.text)
     user_id = message.from_user.id
