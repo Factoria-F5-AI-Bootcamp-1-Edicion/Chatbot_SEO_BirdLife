@@ -21,7 +21,7 @@ openai.api_key = env["OPENAI_API_KEY"]
 #Insertar clave del telebot
 bot = telebot.TeleBot(env["BOT_API_KEY"])
 #Insertar clave de Mongo
-mongodb_url = os.getenv("MONGO_URI")
+mongodb_url = os.getenv("MONGO_URL")
 #Insertar claves de redis
 redis_host = os.getenv ("redis_host")
 redis_port = os.getenv ("redis_port")
@@ -35,6 +35,14 @@ if not env.get("OPENAI_API_KEY"):
     print("La clave de API de OpenAI no está definida en las variables de entorno.")
 if not env.get("BOT_API_KEY"):
     print("La clave de API del bot de Telegram no está definida en las variables de entorno.")
+if not env.get("MONGO_URL"):
+    print("La URL de momgodb no está definida en las variables de entorno.")
+if not env.get("redis_host"):
+    print("La redis_host no está definida en las variables de entorno.")
+if not env.get("redis_port"):
+    print("El puerto de redis no está definido en las variables de entorno.")
+if not env.get("redis_password"):
+    print("El password de redis no está definido en las variables de entorno.")
 
 # Configurar OpenAI y Telegram bot si las claves están definidas
 try:
@@ -50,6 +58,7 @@ except TypeError:
 try:
     with open('instructions.txt', 'r', encoding='utf-8') as f:
         INSTRUCTIONS = f.read().strip()
+# En caso que no se haya creado el archivo .txt que incluye el texto base, mostrar el siguiente mensaje de error.
 except FileNotFoundError:
     print("El archivo 'instructions.txt' no se encontró en el directorio actual.")
 
@@ -60,10 +69,11 @@ cache = TTLCache(maxsize=100, ttl=1209600)
 logging.basicConfig(filename='bot.log', level=logging.DEBUG, format='Date-Time : %(asctime)s : Line No. : %(lineno)d - %(message)s',filemode='w')
 
 
-# Registro de la función que responde a los comandos /start /help. Cuando alguno de los comandos es recibido se envia un mensaje de bienvenida
+# Registro de la función que responde a los comandos /start /help. Cuando alguno de los comandos es recibido se envía un mensaje de bienvenida
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     logging.debug("Received a 'start' or 'help' command")
+    # Definir mensaje de bienvenida que mostrará el chatbot.
     welcome_message = "Hola, soy PiaBot." \
                       "Esta información es proporcionada por un equipo de expertos en el cuidado de aves silvestres de SEO BirdLife." \
                       "No se acepta ninguna responsabilidad por cualquier daño o pérdida que pueda resultar de su aplicación. " \
@@ -72,17 +82,19 @@ def send_welcome(message):
     bot.reply_to(message, welcome_message)
 
 
-#Funcion para las intrucciones
+# Función para el uso del texto base 'INSTRUCTIONS'.
 def get_instructions():
+    # En caso que la consulta realizada esté almacenada en el caché, retornará la respuesta previamente almacenada.
     if 'INSTRUCTIONS' in cache:
         return cache['INSTRUCTIONS']
+    # De lo contrario consultará el texto base para proporcionar la respuesta. 
     else:
         with open('instructions.txt', 'r', encoding='utf-8') as f:
             INSTRUCTIONS = f.read().strip()
             cache['INSTRUCTIONS'] = INSTRUCTIONS
             return INSTRUCTIONS
         
-#Función que tramita las preguntas recibidas, grabamos las respuestas y lasregistramos el mensaje por id de usuario con fecha y hora.
+#Función que tramita las preguntas recibidas, graba las respuestas y registra el mensaje por id de usuario con fecha y hora.
 @bot.message_handler(func=lambda message: True)
 def get_codex(message):
     question = str(message.text)
@@ -91,7 +103,7 @@ def get_codex(message):
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
     context = f"User ID: {user_id}\n" + "fTimestamp: {timestamp}\n" + get_instructions() + "/n" + question + "\n\n"
 
-    #Primero revisa en la caché si tiene la respuesta similar, sino, la crea con Openai
+    # Si la respuesta no existe en el caché, la crea con Openai a partir del texto base.
     if r.get(question):
         answer = r.get(question).decode('utf-8')
     else:
@@ -113,7 +125,7 @@ def get_codex(message):
     # Almacenar la conversación en MongoDB
     store_chatbot_conversation("database_bot", "collection_bot", user_id, question, answer)
 
-#Esta función toma la pregunta del usuario como input, se la envia al api moderation de openai y retorna una lista de flag content si la pregunta viola la politica de moderación.
+# Función que toma la pregunta del usuario como input, la envia al api moderation de openai y retorna una lista de flag content si el mensaje viola la politica de moderación.
 def get_moderation(question):
     errors = {
         "hate": "Content that expresses, incites, or promotes hate based on race, gender, ethnicity, religion, nationality, sexual orientation, disability status, or caste.",
