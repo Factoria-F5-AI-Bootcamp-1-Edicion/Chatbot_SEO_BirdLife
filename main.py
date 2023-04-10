@@ -66,7 +66,7 @@ except (redis.exceptions.ConnectionError, ValueError):
     sys.exit()
 
 
-#Acceso al archivo .txt que contine el texto base que empleará las respuestas a las preguntas realizadas.
+#Acceso al archivo .txt que contiene el texto base que empleará las respuestas a las preguntas realizadas.
 try:
     with open('instructions.txt', 'r', encoding='utf-8') as f:
         INSTRUCTIONS = f.read().strip()
@@ -179,7 +179,7 @@ def store_chatbot_conversation(database_bot, collection_bot, user_id, user_quest
         "user_id": user_id,
         "user_question": user_question,
         "chatbot_response": chatbot_response,
-        "datetime": datetime.now() # Classmethod que retorna la fecha y hora local actual.
+        "datetime": datetime.now() # Class method que retorna la fecha y hora local actual.
 
     }
 
