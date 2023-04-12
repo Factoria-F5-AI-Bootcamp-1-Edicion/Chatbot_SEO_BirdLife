@@ -120,7 +120,7 @@ def get_codex(message):
     user_id = message.from_user.id
     now = datetime.now()
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
-    context = f"User ID: {user_id}\n" + "fTimestamp: {timestamp}\n" + get_instructions() + "/n" + question + "\n\n"
+    context = f"User ID: {user_id}\n" + f"Timestamp: {timestamp}\n" + get_instructions() + "/n" + question + "\n\n"
 
     # Si la respuesta no existe en el caché, la crea con Openai a partir del texto base.
     if r.get(question):
