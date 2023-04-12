@@ -144,27 +144,6 @@ def get_codex(message):
     # Almacenar la conversación en MongoDB
     store_chatbot_conversation("database_bot", "collection_bot", user_id, question, answer)
 
-# Función que toma la pregunta del usuario como input, la envia al api moderation de openai y retorna una lista de flag content si el mensaje viola la politica de moderación.
-def get_moderation(question):
-    errors = {
-        "hate": "Content that expresses, incites, or promotes hate based on race, gender, ethnicity, religion, nationality, sexual orientation, disability status, or caste.",
-        "hate/threatening": "Hateful content that also includes violence or serious harm towards the targeted group.",
-        "self-harm": "Content that promotes, encourages, or depicts acts of self-harm, such as suicide, cutting, and eating disorders.",
-        "sexual": "Content meant to arouse sexual excitement, such as the description of sexual activity, or that promotes sexual services (excluding sex education and wellness).",
-        "sexual/minors": "Sexual content that includes an individual who is under 18 years old.",
-        "violence": "Content that promotes or glorifies violence or celebrates the suffering or humiliation of others.",
-        "violence/graphic": "Violent content that depicts death, violence, or serious physical injury in extreme graphic detail.",
-    }
-    response = openai.Moderation.create(input=question)
-    if response.results[0].flagged:
-        result = [
-            error
-            for category, error in errors.items()
-            if response.results[0].categories[category]
-        ]
-        return result
-    return None
-
 # Función conexión a mongodb
 def store_chatbot_conversation(database_bot, collection_bot, user_id, user_question, chatbot_response):
     # Conectarse al servidor de MongoDB
