@@ -100,7 +100,8 @@ python3 main.py
    - **Presentación:** [Canva](https://www.canva.com/design/DAFfC6VpyJA/v7fzxCaGd_5JzFs-MtbjJw/watch?utm_content=DAFfC6VpyJA&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 
 ## Autores
-![equipo]()
+![equipo](https://user-images.githubusercontent.com/108665441/230791835-21dd1d2a-505b-4c8a-bf83-22fb43856ac1.png)
+
 
 ## :mailbox:Contacta con nosotros:
 + [Alexandra Mendoza](https://www.linkedin.com/in/alexandra-mendoza-malasquez/)
@@ -109,4 +110,3 @@ python3 main.py
 + [Pablo Ruano](https://www.linkedin.com/in/pabloruanosainz/)
 
 <p align="center"><em>¡Protege las aves con la ayuda de <strong>PIABOT</strong>, el chatbot inteligente de SEO BirdLife!</em></p>
-
